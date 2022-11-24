@@ -1,5 +1,6 @@
 //
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { serverUrl } from '/serverUrl.js';
 
 const initialState = {
   users: [],
@@ -17,7 +18,7 @@ export const fetchUser = createAsyncThunk(
   "users/fetch",
   async (_, thunkAPI) => {
     try {
-      const res = await fetch("http://localhost:5000/users")
+      const res = await fetch(`${serverUrl}/users`)
 
       const json = await res.json()
 
@@ -37,7 +38,7 @@ export const fetchUserById = createAsyncThunk(
   async (userId, thunkAPI) => {
     try {
 
-      const res = await fetch(`http://localhost:5000/user/${userId}`)
+      const res = await fetch(`${serverUrl}/user/${userId}`)
 
       const json = await res.json()
 
@@ -56,7 +57,7 @@ export const createUser = createAsyncThunk(
   "registration/post",
   async ({ email, login, password }, thunkAPI) => {
     try {
-      const res = await fetch("http://localhost:5000/registration", {
+      const res = await fetch(`${serverUrl}/registration`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +83,7 @@ export const auth = createAsyncThunk(
   async ({ login, password }, thunkAPI) => {
     try {
       
-      const res = await fetch("http://localhost:5000/login", {
+      const res = await fetch(`${serverUrl}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +113,7 @@ export const addFavorite = createAsyncThunk(
     const state = thunkAPI.getState()
     try {
       const res = await fetch(
-        `http://localhost:5000/users/${userId}/favorite`,
+        `${serverUrl}/users/${userId}/favorite`,
         {
           method: "PATCH",
           headers: {
@@ -137,7 +138,7 @@ export const patchFirstName = createAsyncThunk(
     const state = thunkAPI.getState()
     try {
       const res = await fetch(
-        `http://localhost:5000/users/${userId}/firstname`,
+        `${serverUrl}/users/${userId}/firstname`,
         {
           method: "PATCH",
           headers: {

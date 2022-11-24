@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { serverUrl } from '/serverUrl.js';
 
 const initialState = {
   apartments: [],
@@ -11,7 +12,7 @@ export const getApartments = createAsyncThunk(
   "get/apartments",
   async (thunkAPI) => {
     try {
-      const res = await fetch("http://localhost:5000/apartment")
+      const res = await fetch(`${serverUrl}/apartment`)
       const data = await res.json()
 
       return data
@@ -25,7 +26,7 @@ export const getApartmentById = createAsyncThunk(
   "get/apartmentById",
   async (apartment_id, thunkAPI) => {
     try {
-      const res = await fetch(`http://localhost:5000/apartment/${apartment_id}`)
+      const res = await fetch(`${serverUrl}/apartment/${apartment_id}`)
       return res.json()
     } catch (error) {
       return thunkAPI.rejectWithValue(e.message)
@@ -43,7 +44,7 @@ export const addReviewForApartment = createAsyncThunk(
       const token = localStorage.getItem("token")
 
       const res = await fetch(
-        `http://localhost:5000/apartment/review/${apartment_id}`,
+        `${serverUrl}/apartment/review/${apartment_id}`,
         {
           method: "PATCH",
           headers: {
@@ -96,7 +97,7 @@ export const postApartment = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      const res = await fetch("http://localhost:5000/apartment", {
+      const res = await fetch(`${serverUrl}/apartment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
