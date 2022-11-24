@@ -15,7 +15,6 @@ function Profile() {
   }, [dispatch])
 
   const correctUser = useSelector((state) => state.auth.correctUser)
-console.log(correctUser)
   return (
     <div className={styles.Profile}>
       <ProfileSidebar correctUser={correctUser}/>

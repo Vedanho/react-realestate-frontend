@@ -20,11 +20,12 @@ import IconModal from "../../Agent/IconModal/IconModal"
 import { ImArrowDown } from "react-icons/im"
 import { FaHeart } from "react-icons/fa"
 import ModalCompanent from "./ModalCompanent"
+import { addFavorite } from "../../../features/authSlice/authSlice"
 
 const ApartmentCardsHomePage = () => {
   const dispatch = useDispatch()
   const apartments = useSelector((state) => state.apartmentReducer.apartments)
-
+  
   const [limit, setLimit] = useState(6)
 
   const handleShow = () => {
@@ -38,7 +39,7 @@ const ApartmentCardsHomePage = () => {
   }
 
   const handleFavorite = (apartmentId) => {
-    dispatch(addFavorite({ apartmentId, userId }))
+    // dispatch(addFavorite({ apartmentId, userId }))
   }
 
   useEffect(() => {
@@ -112,9 +113,7 @@ const ApartmentCardsHomePage = () => {
                       </div>
                       <div className={styles.agent_icons}>
                         <ModalCompanent />
-                        <span>
-                          <FaHeart className={styles.passive_heart} />
-                        </span>
+                    
 
                         <span
                           onClick={(e) => handleFavorite(apartment._id)}
