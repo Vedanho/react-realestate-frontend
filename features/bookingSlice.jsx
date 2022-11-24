@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { serverUrl } from '/serverUrl.js';
 
 const initialState = {
   bookings: [],
@@ -10,7 +11,7 @@ export const getBookings = createAsyncThunk(
   "get/bookings",
   async (thunkAPI) => {
     try {
-      const res = await fetch("http://localhost:5000/bookings");
+      const res = await fetch(`${serverUrl}/bookings`);
       const data = await res.json();
 
       return data;
@@ -25,7 +26,7 @@ export const postBookings = createAsyncThunk(
   async ({ time, apartment, realtor, user }, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/bookings", {
+      const res = await fetch(`${serverUrl}/bookings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

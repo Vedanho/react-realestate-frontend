@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { serverUrl } from '/serverUrl.js';
 
 const initialState = {
   realtors: [],
@@ -15,7 +16,7 @@ export const getRealtors = createAsyncThunk(
     const user = localStorage.getItem("user");
 
     try {
-      const res = await fetch("http://localhost:5000/realtors");
+      const res = await fetch(`${serverUrl}/realtors`);
       const data = await res.json();
       return data;
     } catch (error) {
@@ -30,7 +31,7 @@ export const putRate = createAsyncThunk(
     const token = localStorage.getItem("token");
     try {
       const res = await fetch(
-        `http://localhost:5000/realtors/rating/${agent_id}`,
+        `${serverUrl}/realtors/rating/${agent_id}`,
         {
           method: "PATCH",
           headers: {
@@ -61,7 +62,7 @@ export const addReview = createAsyncThunk(
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/realtors/review/${agent_id}`,
+        `${serverUrl}/realtors/review/${agent_id}`,
         {
           method: "PATCH",
           headers: {
@@ -94,7 +95,7 @@ export const getRealtorById = createAsyncThunk(
   "get/realtorById",
   async (agent_id, thunkAPI) => {
     try {
-      const res = await fetch(`http://localhost:5000/realtors/${agent_id}`);
+      const res = await fetch(`${serverUrl}/realtors/${agent_id}`);
 
       return res.json();
     } catch (error) {
